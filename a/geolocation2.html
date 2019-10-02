@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 480px;
+        width: 100%;
+
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map;
+      function initMap() {
+
+        var origin = new google.maps.LatLng(34.051659,-118.249085);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center:  origin,
+          zoom: 18,
+          gestureHandling: "greedy"
+        });
+
+        var marker1 = new google.maps.Marker({
+            icon: {path: google.maps.SymbolPath.CIRCLE,
+              scale: 5,
+              strokeColor: '#338833',
+              strokeOpacity: 0.5
+            },
+            animation:  google.maps.Animation.BOUNCE,
+            map: map,
+            position: origin,
+            title: "start"
+        });
+
+        var marker2 = new google.maps.Marker({
+            icon: {path: google.maps.SymbolPath.CIRCLE,
+              scale: 5,
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.5
+            },
+            animation:  google.maps.Animation.BOUNCE,
+            map: map,
+            title: "finish"
+        });
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            origin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(origin);
+            marker1.setPosition(origin);
+          }, function() {
+            alert("Error: The Geolocation service failed. Using default location");
+          });
+        } else {
+          alert("Error: Your browser doesn't support geolocation. Using default location");
+        }
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+
+        // var destination = {lat: 17.6135832,lng: 121.69990849999999};
+        //     marker2.setPosition(destination);
+        //     directionsService.route({
+        //         origin: origin,
+        //         destination: destination,
+        //         travelMode: 'DRIVING'
+        //     }, function(response, status) {
+        //       if (status === 'OK') {
+        //     directionsRenderer.setDirections();
+        //       } else {
+        //         window.alert('Directions request failed due to ' + status);
+        //       }
+        //     });
+
+        map.addListener('click', function(event) {
+            // var destination = event.latLng;
+            var destination = {lat: 17.6135832,lng: 121.69990849999999};
+            marker2.setPosition(destination);
+            directionsService.route({
+                origin: origin,
+                destination: destination,
+                travelMode: 'DRIVING'
+            }, function(response, status) {
+              if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+              } else {
+                window.alert('Directions request failed due to ' + status);
+              }
+            });
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuqZgavvNSBHVe9QgiWeOiv1aLGQNyMJg&callback=initMap">
+    </script>
+  </body>
+</html>
