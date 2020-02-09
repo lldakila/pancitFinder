@@ -67,8 +67,12 @@ class Pancit_model extends CI_Model{
 	public function get_comments($id = null){
 		if(!($id === null)){
 			// echo $id;
+			$this->db->select('user_name, pc_id, pc_content, pc_date');
+			$this->db->from('tbl_pcomment');
+			$this->db->join('tbl_userlogin', 'tbl_pcomment.user_id = tbl_userlogin.user_id','inner');
 			$this->db->order_by("pc_date", "desc");
-			$rs = $this->db->get_where('tbl_pcomment', array('p_id' =>$id));		
+			//$rs = $this->db->get_where('tbl_pcomment', array('p_id' =>$id));
+			$rs = $this->db->get_where('', array('p_id' =>$id));		
 				return $rs->result_array();
 		}
 	}
