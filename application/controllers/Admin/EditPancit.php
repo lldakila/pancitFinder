@@ -10,7 +10,7 @@ class EditPancit extends CI_Controller{
 	public function index(){
 		$data["title"] = "Edit Panciteria | ".$_SESSION['admin_session']['admin_name'];
 		$data['devs'] = DEV_NAME;
-		$data['p_id'] = htmlspecialchars($_GET('p_id'))
+		$data['p_id'] = htmlspecialchars($_GET('p_id'));
 		
 		$this->load->view('templates/head',$data);
 		$this->load->view('admin/edit_pancit',$data);

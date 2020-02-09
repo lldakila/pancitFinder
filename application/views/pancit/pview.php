@@ -250,4 +250,17 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjMx9FcTfQLkuLATrMQWC_ynN
  });
  
 });
+
+  $(function(){
+    setInterval(function(){
+      //alert('Hello!');
+      $.ajax({
+        url:'<?php echo base_url('Pancit/fetch_live_comment/'.$p_id); ?>',
+        success:function(data)
+          {
+            $('#display_comment').html(data);
+          }
+      })
+    },5000)
+  })
 </script>

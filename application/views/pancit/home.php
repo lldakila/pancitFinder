@@ -51,7 +51,8 @@
 		      </a>
 		   </div>
 	  		</div>
-	  	</div>';
+		  </div>';
+		  echo json_encode($pancit);
 	  	} 
 	?>
 </div>

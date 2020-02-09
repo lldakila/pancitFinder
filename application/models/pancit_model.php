@@ -8,11 +8,13 @@ class Pancit_model extends CI_Model{
 	public function get_pancit($id = null){
 		if($id===null){
 			$rs = $this->db->get('tbl_pancit');
+				//returns result_array for multiple row results usually for array, refer to documentation
 				return $rs->result_array();
 		}
 		else{
 			$rs = $this->db->get_where('tbl_pancit', array('p_id' =>$id));
 			//print_r($rs);
+			//returns single row of result
 			return $rs->row_array();
 		}
 
@@ -67,6 +69,15 @@ class Pancit_model extends CI_Model{
 			// echo $id;
 			$this->db->order_by("pc_date", "desc");
 			$rs = $this->db->get_where('tbl_pcomment', array('p_id' =>$id));		
+				return $rs->result_array();
+		}
+	}
+
+	public function get_live_comments($id = null){
+		if(!($id === null)){
+			// echo $id;
+			$this->db->order_by("pc_date", "desc");
+			$rs = $this->db->get_where('tbl_pcomment', array('p_id' =>$id),3);		
 				return $rs->result_array();
 		}
 	}

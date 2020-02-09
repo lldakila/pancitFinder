@@ -105,6 +105,22 @@ class Pancit extends CI_Controller{
 
 	}
 
+	public function fetch__live_comment($p_id){
+		$comments = $this->pancit_model->get_live_comments($p_id);
+
+		foreach($comments as $comment){
+        echo '
+          <div class="panel panel-default">
+            <div class="panel-heading">By <b>'.$comment['user_name'].'</b> on <i>'.date('M-d-Y h:ia', strtotime($comment['pc_date'])).'</i></div>
+            <div class="panel-body">'.$comment['pc_content'].'</div>
+            
+          </div>
+          ';
+          //<div class="panel-footer" align="right"><button type="button" class="btn btn-default reply" id="1">Reply</button></div>
+      	} 
+
+	}
+
 	public function add_comment($p_id){
 		$this->form_validation->set_rules('comment_content', 'Comment content', 'required|strip_tags|trim');
 
