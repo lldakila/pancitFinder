@@ -105,7 +105,7 @@ class Pancit extends CI_Controller{
 
 	}
 
-	public function fetch__live_comment($p_id){
+	public function fetch_live_comment($p_id){
 		$comments = $this->pancit_model->get_live_comments($p_id);
 
 		foreach($comments as $comment){

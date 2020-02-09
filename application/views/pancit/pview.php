@@ -205,29 +205,29 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjMx9FcTfQLkuLATrMQWC_ynN
 
 <script>
   //for comments
-  $(document).ready(function(){
+$(document).ready(function(){
  
- $('#comment_form').on('submit', function(event){
-  event.preventDefault();
-  var form_data = $(this).serialize();
-  //var form_data = $('#comment_content').val();
-  $.ajax({
-   url:"<?php echo base_url('Pancit/add_comment/'.$p_id); ?>",
-   method:"POST",
-   data:form_data,
-   dataType:"JSON",
-   success:function(data)
-   {
-     if(data.error != '')
-    {
-     $('#comment_form')[0].reset();
-     $('#comment_message').html(data.error);
-     //$('#comment_id').val('0');
-     load_comment();
-    }
-   }
-  })
- });
+//  $('#comment_form').on('submit', function(event){
+//   event.preventDefault();
+//   var form_data = $(this).serialize();
+//   //var form_data = $('#comment_content').val();
+//   $.ajax({
+//    url:"<?php echo base_url('Pancit/add_comment/'.$p_id); ?>",
+//    method:"POST",
+//    data:form_data,
+//    dataType:"JSON",
+//    success:function(data)
+//    {
+//      if(data.error != '')
+//     {
+//      $('#comment_form')[0].reset();
+//      $('#comment_message').html(data.error);
+//      //$('#comment_id').val('0');
+//      load_comment();
+//     }
+//    }
+//   })
+//  });
 
  load_comment();
 
@@ -243,11 +243,11 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjMx9FcTfQLkuLATrMQWC_ynN
   })
  }
 
- $(document).on('click', '.reply', function(){
-  var comment_id = $(this).attr("id");
-  //$('#comment_id').val(comment_id);
-  $('#comment_content').focus();
- });
+//  $(document).on('click', '.reply', function(){
+  //   var comment_id = $(this).attr("id");
+  //   //$('#comment_id').val(comment_id);
+  //   $('#comment_content').focus();
+//  });
  
 });
 
@@ -255,12 +255,34 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjMx9FcTfQLkuLATrMQWC_ynN
     setInterval(function(){
       //alert('Hello!');
       $.ajax({
-        url:'<?php echo base_url('Pancit/fetch_live_comment/'.$p_id); ?>',
+        //url:'<?php //echo base_url('Pancit/fetch_live_comment/'.$p_id); ?>',
+        url:'<?php echo base_url('Pancit/fetch_comment/'.$p_id); ?>',
         success:function(data)
           {
             $('#display_comment').html(data);
           }
       })
-    },5000)
+    },1000);
+    $('#comment_form').on('submit', function(event){
+  event.preventDefault();
+  var form_data = $(this).serialize();
+  //var form_data = $('#comment_content').val();
+  $.ajax({
+   url:"<?php echo base_url('Pancit/add_comment/'.$p_id); ?>",
+   method:"POST",
+   data:form_data,
+   dataType:"JSON",
+   success:function(data)
+   {
+     if(data.error != '')
+    {
+     $('#comment_form')[0].reset();
+     $('#comment_message').html(data.error);
+     //$('#comment_id').val('0');
+     //load_comment();
+    }
+   }
+  })
+ });
   })
 </script>
