@@ -4,11 +4,13 @@
    <form class="form-signin" action="<?php echo base_url('Admin/Login/verify');?>" method="post">
 
      <h2 class="form-signin-heading">Please sign in</h2>
-     <!-- <?php// echo $this->session->flashdata('msg');?> -->
+     <?php// echo $this->session->flashdata('msg');?>
+     
      <label for="txtuser" >Username</label>
-     <input type="" name="txtuser" id="txtuser" class="form-control" placeholder="Username" required autofocus>
+     <input type="" name="txtuser" id="txtuser" class="form-control" placeholder="Username" required autofocus />
      <label for="txtpass" >Password</label>
      <input type="password" name="txtpass" id="txtpass" class="form-control" placeholder="Password" required>
+     
      <?php echo validation_errors(); ?> 
      <!-- <div class="checkbox">
        <label>
